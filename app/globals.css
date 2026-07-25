@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply selection:bg-inudesu-accent/25 selection:text-inudesu-accentDark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-inudesu-bg text-inudesu-text font-sans overflow-x-hidden antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(220, 212, 196, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(230, 126, 34, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(230, 126, 34, 0.8);
+}
+
+::selection {
+  background: rgba(230, 126, 34, 0.25);
+  color: #c85e12;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-7 py-3.5 bg-accent-sheen text-white font-semibold rounded-full tracking-wide transition-all duration-300 shadow-glow-accent hover:shadow-glow-accent-lg hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-inudesu-accent focus:ring-offset-2 focus:ring-offset-inudesu-bg;
+  }
+
+  .btn-secondary {
+    @apply px-7 py-3.5 border border-inudesu-dark/30 text-inudesu-dark font-semibold rounded-full tracking-wide transition-all duration-300 hover:border-inudesu-accent hover:text-inudesu-accent hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-inudesu-accent;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-inudesu-text transition-colors duration-300 hover:text-inudesu-accent focus:outline-none;
+  }
+
+  /* endfield-style glowing accent text */
+  .text-glow {
+    @apply text-inudesu-accent;
+    text-shadow: 0 0 24px rgba(230, 126, 34, 0.45), 0 0 48px rgba(230, 126, 34, 0.18);
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold font-display tracking-tight text-inudesu-dark;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-inudesu-textSoft font-light;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs md:text-sm uppercase tracking-[0.35em] text-inudesu-accent;
+  }
+
+  .tech-label {
+    @apply font-mono text-sm px-3 py-1 bg-inudesu-dark/5 border border-inudesu-border rounded text-inudesu-accentDark;
+  }
+
+  .code-block {
+    @apply font-mono text-sm bg-inudesu-darker border border-inudesu-borderDark rounded-lg p-4 text-inudesu-light/90 overflow-x-auto;
+  }
+
+  /* warm frosted card */
+  .card-glass {
+    @apply backdrop-blur-sm bg-inudesu-light/70 border border-inudesu-border rounded-xl shadow-card-soft hover:border-inudesu-accent/60 hover:shadow-glow-accent transition-all duration-300;
+  }
+
+  /* dark cinematic card (endfield panel) */
+  .card-dark {
+    @apply relative bg-inudesu-darker border border-inudesu-borderDark rounded-xl text-inudesu-light overflow-hidden;
+  }
+
+  .input-field {
+    @apply bg-inudesu-light border border-inudesu-border rounded-lg px-4 py-2 text-inudesu-text font-mono placeholder:text-inudesu-textSoft/60 focus:outline-none focus:border-inudesu-accent focus:ring-2 focus:ring-inudesu-accent/20 transition-all duration-300;
+  }
+
+  .container-wide {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(230, 126, 34, 0.5), 0 0 40px rgba(230, 126, 34, 0.25);
+  }
+
+  .bg-gradient-warm {
+    background: linear-gradient(135deg, #f59e4b 0%, #e67e22 55%, #c85e12 100%);
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #f59e4b 0%, #e67e22 55%, #c85e12 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* endfield HUD corner brackets */
+  .hud-corners::before,
+  .hud-corners::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: rgba(230, 126, 34, 0.8);
+    pointer-events: none;
+  }
+  .hud-corners::before {
+    top: 8px;
+    left: 8px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+  }
+  .hud-corners::after {
+    bottom: 8px;
+    right: 8px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+}
