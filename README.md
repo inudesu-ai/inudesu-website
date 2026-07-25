@@ -246,7 +246,7 @@ MIT License — feel free to use and modify for your project.
 
 ## Contact
 
-- **Email**: team@inudesu.xyz
+
 - **GitHub**: [github.com/inudesu/](https://github.com/)
 - **ADVX 2026**: https://advx2026.com
 

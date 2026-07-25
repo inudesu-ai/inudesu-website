@@ -1,172 +1,75 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useT } from '@/lib/i18n'
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  const year = new Date().getFullYear()
+  const { t } = useT()
 
   return (
-    <footer className="relative w-full bg-inudesu-darker border-t border-inudesu-borderDark text-inudesu-light overflow-hidden">
-      {/* warm glow accent */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-hero-glow opacity-60" />
-
-      {/* Final CTA section */}
-      <section className="relative px-4 py-20 md:py-32">
-        <div className="container-wide text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <p className="eyebrow mb-6">我们的使命</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-tight mb-8 text-inudesu-light">
-              我们做的
-              <br />不是更小的遥控器。
-              <br />
-              <span className="text-gradient-warm">我们为机器创造了一种新的语言。</span>
-            </h2>
-
-            <p className="text-lg md:text-xl text-inudesu-light/70 max-w-2xl mx-auto mb-12">
-              Zilo 将人的动作翻译为机器的意图，让 Dimension 实时响应
-            </p>
-
-            <div className="inline-block px-7 py-3.5 bg-accent-sheen text-white font-semibold rounded-full tracking-wide shadow-glow-accent">
-              你的动作，就是它的本能
-            </div>
-          </motion.div>
+    <footer className="footer">
+      <div className="container">
+        {/* Mission */}
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <span className="section-label">{t('footer.mission')}</span>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.25rem)', fontWeight: 700, margin: '0.75rem 0', lineHeight: 1.3 }}>
+            {t('footer.mission1')}<br />
+            {t('footer.mission2')}<br />
+            <span style={{ color: 'var(--color-accent)' }}>{t('footer.mission3')}</span>
+          </h2>
+          <p style={{ fontSize: '1rem', color: 'var(--color-text-secondary)', maxWidth: '480px', margin: '0.75rem auto 0' }}>
+            {t('footer.missionDesc')}
+          </p>
         </div>
-      </section>
 
-      {/* Footer content */}
-      <div className="relative px-4 py-12 md:py-16 border-t border-inudesu-borderDark">
-        <div className="container-wide">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            {/* Brand */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-full border border-inudesu-accent flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-accent-sheen" />
-                </div>
-                <span className="font-display font-bold text-xl text-inudesu-light">inudesu</span>
+        <div className="footer-grid">
+          {/* Brand */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <div style={{ width: '32px', height: '32px', border: '1px solid var(--color-accent)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '16px', height: '16px', background: 'var(--color-accent)', borderRadius: '2px' }} />
               </div>
-              <p className="text-sm text-inudesu-light/60">
-                通过可穿戴动作感知实现人机交互
-              </p>
-            </motion.div>
-
-            {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <h4 className="font-bold text-inudesu-light mb-4">导航</h4>
-              <ul className="space-y-2 text-sm text-inudesu-light/60">
-                <li>
-                  <a href="#system" className="hover:text-inudesu-accent transition-colors">
-                    系统
-                  </a>
-                </li>
-                <li>
-                  <a href="#gestures" className="hover:text-inudesu-accent transition-colors">
-                    手势
-                  </a>
-                </li>
-                <li>
-                  <a href="#architecture" className="hover:text-inudesu-accent transition-colors">
-                    架构
-                  </a>
-                </li>
-                <li>
-                  <a href="#why" className="hover:text-inudesu-accent transition-colors">
-                    意义
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Project */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h4 className="font-bold text-inudesu-light mb-4">项目</h4>
-              <ul className="space-y-2 text-sm text-inudesu-light/60">
-                <li>
-                  <a href="#" className="hover:text-inudesu-accent transition-colors">
-                    GitHub 仓库
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-inudesu-accent transition-colors">
-                    研究论文
-                  </a>
-                </li>
-                <li>
-                  <a href="#demo" className="hover:text-inudesu-accent transition-colors">
-                    演示视频
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Contact */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <h4 className="font-bold text-inudesu-light mb-4">联系</h4>
-              <ul className="space-y-2 text-sm text-inudesu-light/60">
-                <li>
-                  <a
-                    href="mailto:team@inudesu.xyz"
-                    className="hover:text-inudesu-accent transition-colors"
-                  >
-                    team@inudesu.xyz
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-inudesu-accent transition-colors">
-                    团队成员
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-inudesu-accent transition-colors">
-                    ADVX 2026
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
+              <span style={{ fontWeight: 600, fontSize: '1.125rem' }}>inudesu<span style={{ color: 'var(--color-accent)' }}>.xyz</span></span>
+            </div>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)' }}>{t('footer.brandDesc')}</p>
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-inudesu-borderDark mb-8" />
+          {/* Nav */}
+          <div>
+            <h4 style={{ fontWeight: 600, marginBottom: '0.75rem', fontSize: '0.9375rem' }}>{t('footer.navTitle')}</h4>
+            <ul style={{ listStyle: 'none', fontSize: '0.8125rem', color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {[['#system', 'nav.system'], ['#gestures', 'nav.gestures'], ['#xyz', 'nav.xyz'], ['#architecture', 'nav.tech'], ['#why', 'nav.why']].map(([href, tk]) => (
+                <li key={href}><a href={href}>{t(tk)}</a></li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Bottom */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-inudesu-light/60 font-mono">
-            <p>© {currentYear} inudesu. 保留所有权利。 | ADVX 2026 黑客松项目</p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="hover:text-inudesu-accent transition-colors">
-                隐私
-              </a>
-              <a href="#" className="hover:text-inudesu-accent transition-colors">
-                条款
-              </a>
-              <a href="#" className="hover:text-inudesu-accent transition-colors">
-                网站地图
-              </a>
-            </div>
+          {/* Project */}
+          <div>
+            <h4 style={{ fontWeight: 600, marginBottom: '0.75rem', fontSize: '0.9375rem' }}>{t('footer.projectTitle')}</h4>
+            <ul style={{ listStyle: 'none', fontSize: '0.8125rem', color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <li><a href="#">{t('footer.github')}</a></li>
+              <li><a href="#">{t('footer.paper')}</a></li>
+              <li><a href="#demo">{t('footer.video')}</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 style={{ fontWeight: 600, marginBottom: '0.75rem', fontSize: '0.9375rem' }}>{t('footer.contactTitle')}</h4>
+            <ul style={{ listStyle: 'none', fontSize: '0.8125rem', color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              <li><a href="#">{t('footer.team')}</a></li>
+              <li><a href="#">{t('footer.advx')}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>© {year} inudesu. {t('footer.copyright')}</p>
+          <div style={{ display: 'flex', gap: '1.5rem' }}>
+            <a href="#">{t('footer.privacy')}</a>
+            <a href="#">{t('footer.terms')}</a>
+            <a href="#">{t('footer.sitemap')}</a>
           </div>
         </div>
       </div>

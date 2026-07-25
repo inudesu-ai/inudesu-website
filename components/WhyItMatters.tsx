@@ -1,98 +1,55 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useT } from '@/lib/i18n'
+import { NoControllerIcon, NoScreenIcon, LowerBarrierIcon } from '@/components/SectionIcons'
 
-interface ValueProp {
-  title: string
-  sub: string
-  description: string
-  icon: string
-}
-
-const values: ValueProp[] = [
-  {
-    title: '无需控制器',
-    sub: 'NO CONTROLLER',
-    description: '自然动作取代复杂的操控硬件',
-    icon: '✋',
-  },
-  {
-    title: '无需屏幕',
-    sub: 'NO SCREEN',
-    description: '操作者目光始终聚焦物理环境',
-    icon: '👁️',
-  },
-  {
-    title: '降低交互门槛',
-    sub: 'LOWER BARRIER',
-    description: '让机器人系统更简单、更快速地听从指令',
-    icon: '⚡',
-  },
-]
+const icons = [<NoControllerIcon key={0} />, <NoScreenIcon key={1} />, <LowerBarrierIcon key={2} />]
 
 export default function WhyItMatters() {
-  return (
-    <section id="why" className="relative w-full py-20 md:py-32 px-4">
-      <div className="container-wide">
-        {/* Main statement */}
-        <motion.div
-          className="mb-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <p className="eyebrow mb-4">为什么重要</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-tight mb-8 text-inudesu-dark">
-            机器人应该理解的
-            <br />
-            不只是
-            <br />
-            <span className="text-gradient-warm">按钮。</span>
-          </h2>
-        </motion.div>
+  const { t } = useT()
+  const val = (k: string) => JSON.parse(t(`why.values.${k}`)) as { title: string; sub: string; desc: string }
 
-        {/* Value propositions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {values.map((value, idx) => (
-            <motion.div
-              key={idx}
-              className="card-glass p-8 md:p-10"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -8 }}
-            >
-              <div className="text-5xl mb-6">{value.icon}</div>
-              <h3 className="text-xl font-bold text-inudesu-dark mb-1">{value.title}</h3>
-              <p className="text-xs font-mono text-inudesu-accent/60 mb-3">{value.sub}</p>
-              <p className="text-inudesu-textSoft leading-relaxed">{value.description}</p>
-            </motion.div>
-          ))}
+  return (
+    <section id="why" className="section section-alt">
+      <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <span className="section-label">{t('why.eyebrow')}</span>
+          <h2 className="section-heading" style={{ marginTop: '0.5rem' }}>
+            {t('why.title1')}<br />{t('why.title2')}<br /><span style={{ color: 'var(--color-accent)' }}>{t('why.title3')}</span>
+          </h2>
         </div>
 
-        {/* Explanation section */}
-        <motion.div
-          className="max-w-3xl mx-auto text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-lg md:text-xl text-inudesu-textSoft leading-relaxed mb-8">
-            本项目探索一个未来——可穿戴设备成为人与具身机器之间直觉化的沟通层。
-            手势控制界面不仅是一种便利，更代表着人类对机器人操控方式的根本转变
-          </p>
+        <div className="grid grid-3" style={{ gap: '1.5rem', marginBottom: '3rem' }}>
+          {['noController', 'noScreen', 'lowerBarrier'].map((k, idx) => {
+            const v = val(k)
+            return (
+              <div key={k} className="card">
+                <div style={{ width: '48px', height: '48px', color: 'var(--color-accent)', marginBottom: '1.25rem' }}>
+                  {icons[idx]}
+                </div>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: 600, marginBottom: '0.25rem' }}>{v.title}</h3>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6875rem', letterSpacing: '0.1em', color: 'var(--color-text-tertiary)', marginBottom: '0.75rem' }}>{v.sub}</p>
+                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>{v.desc}</p>
+              </div>
+            )
+          })}
+        </div>
 
-          <div className="hud-corners relative bg-inudesu-darker border border-inudesu-borderDark rounded-xl p-8 md:p-12 shadow-glow-accent">
-            <p className="text-2xl md:text-3xl font-display font-bold text-inudesu-light italic">
-              当操控变得自然，人与机器人不再是操作者和工具的关系——
-              <br />
-              <span className="text-gradient-warm">他们成为伙伴。</span>
-            </p>
+        <div style={{ maxWidth: '640px', margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: '1rem', color: 'var(--color-text-secondary)', marginBottom: '1.5rem' }}>{t('why.body')}</p>
+          <div style={{
+            padding: '1.5rem',
+            background: '#1A1A1A',
+            color: '#E5E0D8',
+            borderRadius: 'var(--radius)',
+            fontStyle: 'italic',
+            fontSize: '1.125rem',
+            fontWeight: 500,
+            lineHeight: 1.5,
+          }}>
+            {t('why.quote1')}<br /><span style={{ color: 'var(--color-accent)' }}>{t('why.quote2')}</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

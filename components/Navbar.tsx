@@ -1,87 +1,61 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useT, type Lang } from '@/lib/i18n'
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { t, lang, setLang } = useT()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const h = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', h, { passive: true })
+    return () => window.removeEventListener('scroll', h)
   }, [])
 
-  const scrollToDemo = () => {
-    document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })
+  const switchLang = (next: Lang) => {
+    setLang(next)
+    try { localStorage.setItem('inudesu-lang', next) } catch {}
   }
 
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-inudesu-bg/85 backdrop-blur-md border-b border-inudesu-border'
-          : 'bg-transparent'
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="container-wide">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo + Brand */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <Image
-              src="/inudesu-badge.png"
-              alt="inudesu"
-              width={40}
-              height={40}
-              className="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-105 transition-transform"
-            />
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-lg md:text-xl text-inudesu-dark group-hover:text-inudesu-accent transition-colors">
-                inudesu
-              </span>
-              <span className="font-mono text-xs text-inudesu-accent font-semibold">.xyz</span>
-            </div>
-          </Link>
+    <nav className="navbar" style={scrolled ? { boxShadow: '0 1px 4px rgba(0,0,0,0.06)' } : undefined}>
+      <div className="container navbar-inner">
+        <Link href="/" className="navbar-brand">
+          <Image src="/inudesu-logo.png" alt="inudesu" width={36} height={36} />
+          <span>inudesu</span>
+        </Link>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8">
-            <NavLink href="#system">系统</NavLink>
-            <NavLink href="#gestures">手势</NavLink>
-            <Link href="/tech" className="font-mono text-sm text-inudesu-dark hover:text-inudesu-accent transition-colors duration-300 relative group">
-              技术
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-inudesu-accent group-hover:w-full transition-all duration-300" />
-            </Link>
-            <NavLink href="#why">意义</NavLink>
-          </div>
+        <div className="navbar-links">
+          <a href="#system">{t('nav.system')}</a>
+          <a href="#gestures">{t('nav.gestures')}</a>
+          <a href="#xyz">{t('nav.xyz')}</a>
+          <Link href="/tech">{t('nav.tech')}</Link>
+          <a href="#why">{t('nav.why')}</a>
+        </div>
 
-          {/* CTA Button */}
-          <div className="flex items-center gap-4">
-            <button className="btn-secondary hidden md:inline-block" onClick={scrollToDemo}>
-              查看演示
-            </button>
+        <div className="navbar-right">
+          <div style={{ display: 'flex', border: '1px solid var(--color-border)', borderRadius: 'var(--radius)', overflow: 'hidden', fontSize: '0.75rem' }}>
+            <button
+              type="button"
+              onClick={() => switchLang('zh')}
+              style={{ padding: '0.25rem 0.625rem', border: 'none', background: lang === 'zh' ? 'var(--color-accent)' : 'transparent', color: lang === 'zh' ? '#fff' : 'var(--color-text-secondary)', cursor: 'pointer' }}
+            >中</button>
+            <button
+              type="button"
+              onClick={() => switchLang('en')}
+              style={{ padding: '0.25rem 0.625rem', border: 'none', background: lang === 'en' ? 'var(--color-accent)' : 'transparent', color: lang === 'en' ? '#fff' : 'var(--color-text-secondary)', cursor: 'pointer' }}
+            >EN</button>
           </div>
+          <button className="btn btn-outline" onClick={() => scrollTo('demo')} style={{ padding: '0.5rem 1rem', fontSize: '0.8125rem' }}>
+            {t('nav.demo')}
+          </button>
         </div>
       </div>
-    </motion.nav>
-  )
-}
-
-function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a
-      href={href}
-      className="font-mono text-sm text-inudesu-dark hover:text-inudesu-accent transition-colors duration-300 relative group"
-    >
-      {children}
-      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-inudesu-accent group-hover:w-full transition-all duration-300" />
-    </a>
+    </nav>
   )
 }
